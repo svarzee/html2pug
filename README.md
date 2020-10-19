@@ -1,4 +1,4 @@
-# fixedhtml2pug - updated version of [html2pug](https://github.com/izolate/html2pug)
+# html2pugfixed - updated version of [html2pug](https://github.com/izolate/html2pug)
 
 Converts **HTML** to **Pug** templating language (_formerly Jade_).  
 Requires Node.js version `7.6` or higher.

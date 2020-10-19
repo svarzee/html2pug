@@ -1,5 +1,5 @@
 {
-  "name": "fixedhtml2pug",
+  "name": "html2pugfixed",
   "version": "4.1.0",
   "description": "Converts HTML to Pug",
   "main": "src/index.js",
