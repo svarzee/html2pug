@@ -1,5 +1,5 @@
 {
-  "name": "html2pug",
+  "name": "newhtml2pug",
   "version": "4.1.0",
   "description": "Converts HTML to Pug",
   "main": "src/index.js",
