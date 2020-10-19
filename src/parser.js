@@ -3,12 +3,13 @@ const TEXT_NODE = '#text'
 const DIV_NODE = 'div'
 const COMMENT_NODE = '#comment'
 const COMMENT_NODE_PUG = '//'
+const TEMPLATE_NODE = 'template'
 
 const hasSingleTextNodeChild = node => {
   return (
-    node.childNodes &&
-    node.childNodes.length === 1 &&
-    node.childNodes[0].nodeName === TEXT_NODE
+    getChildNodes(node) &&
+    getChildNodes(node).length === 1 &&
+    getChildNodes(node)[0].nodeName === TEXT_NODE
   )
 }
 
@@ -32,7 +33,7 @@ class Parser {
   }
 
   parse() {
-    const walk = this.walk(this.root.childNodes, 0)
+    const walk = this.walk(getChildNodes(this.root), 0)
     let it
 
     do {
@@ -63,11 +64,11 @@ class Parser {
       }
 
       if (
-        node.childNodes &&
-        node.childNodes.length > 0 &&
+        getChildNodes(node) &&
+        getChildNodes(node).length > 0 &&
         !hasSingleTextNodeChild(node)
       ) {
-        yield* this.walk(node.childNodes, level + 1)
+        yield* this.walk(getChildNodes(node), level + 1)
       }
     }
   }
@@ -191,7 +192,7 @@ class Parser {
     const pugNode = this.getNodeWithAttributes(node)
 
     const value = hasSingleTextNodeChild(node)
-      ? node.childNodes[0].value
+      ? getChildNodes(node)[0].value
       : node.value
 
     return this.formatPugNode(pugNode, value, level)
@@ -214,6 +215,17 @@ class Parser {
         return this.createElement(node, level)
     }
   }
+}
+
+/**
+ * Gets child nodes.
+ *
+ * @param element
+ */
+function getChildNodes(element) {
+  return element.nodeName === TEMPLATE_NODE
+    ? element.content.childNodes
+    : element.childNodes
 }
 
 module.exports = Parser
